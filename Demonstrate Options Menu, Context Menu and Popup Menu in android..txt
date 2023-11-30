@@ -1,0 +1,182 @@
+XML code:
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".MainActivity"
+        android:background="#E0FFFF">
+       <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Long press for Context Menu"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="80dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Popup Menu"
+            android:onClick="showPopupMenu"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="100dp"/>
+</LinearLayout>
+Java code:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+public class MainActivity extends AppCompatActivity {
+     TextView textView;
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        textView = findViewById(R.id.textView1);
+        registerForContextMenu(textView);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.option1:
+                showToast("Save");
+                return true;
+            case R.id.option2:
+                showToast("Save As");
+                return true;
+            case R.id.option3:
+                showToast("Edit");
+                return true;
+            case R.id.option4:
+                showToast("History");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.context_menu, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.context1:
+                showToast("Paste");
+                return true;
+            case R.id.context2:
+                showToast("Copy");
+                return true;
+            case R.id.context3:
+                showToast("Refresh");
+                return true;
+            case R.id.context4:
+                showToast("Properties");
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+    public void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.popup1:
+                        showToast("Shut Down");
+                        return true;
+                    case R.id.popup2:
+                        showToast("Sleep");
+                        return true;
+                    case R.id.popup3:
+                        showToast("Restart");
+                        return true;
+                    case R.id.popup4:
+                        showToast("Update");
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        popupMenu.show();
+    }
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+}
+
+popup_menu.xml:
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/popup1"
+            android:title="Shut down" />
+    <item
+            android:id="@+id/popup2"
+            android:title="Sleep" />
+    <item
+        android:id="@+id/popup3"
+        android:title="Restart" />
+    <item
+        android:id="@+id/popup4"
+        android:title="Update" />
+</menu>
+
+Context_menu.xml:
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/context1"
+            android:title="Paste" />
+    <item
+            android:id="@+id/context2"
+            android:title="Copy" />
+    <item
+        android:id="@+id/context3"
+        android:title="Refresh" />
+    <item
+        android:id="@+id/context4"
+        android:title="Properties" />
+</menu>
+
+Options_menu.xml:
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/option1"
+            android:title="Save" />
+    <item
+            android:id="@+id/option2"
+            android:title="Save as" />
+    <item
+        android:id="@+id/option3"
+        android:title="Edit" />
+    <item
+        android:id="@+id/option4"
+        android:title="History" />
+</menu>
+

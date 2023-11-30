@@ -1,0 +1,64 @@
+XML code:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ToggleButton
+        android:id="@+id/toggleButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textOn="On"
+        android:textOff="Off"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:id="@+id/statusTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toggleButton1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Light Bulb: Off"/>
+</RelativeLayout>
+
+
+Java code:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+public class MainActivity extends AppCompatActivity {
+     ToggleButton toggleButton;
+     TextView statusTextView;
+     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        toggleButton = findViewById(R.id.toggleButton1);
+        statusTextView = findViewById(R.id.statusTextView1);
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (toggleButton.isChecked()) {
+                    statusTextView.setText("Light Bulb: On");
+                    showToast("Light Bulb is On");
+                } else {
+                    statusTextView.setText("Light Bulb: Off");
+                    showToast("Light Bulb is Off");
+                }
+            }
+        });
+    }
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+}

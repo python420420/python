@@ -1,0 +1,182 @@
+XML code:
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity"
+    android:background="#E0FFFF">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:text="DATE AND TIME PICKER"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/e1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:layout_marginTop="16dp"
+        android:inputType="textEmailAddress"/>
+    <EditText
+        android:id="@+id/e2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Name" />
+    <EditText
+        android:id="@+id/elocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location" />
+    <EditText
+        android:id="@+id/e3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date"
+        android:focusable="false"
+        android:clickable="true" />
+
+    <EditText
+        android:id="@+id/e4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Time"
+        android:focusable="false"
+        android:clickable="true" />
+
+    <Button
+        android:id="@+id/Datebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Date" />
+
+    <Button
+        android:id="@+id/Timebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Time" />
+
+    <Button
+        android:id="@+id/Acceptbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Accept"
+       />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textSize="16sp" />
+</LinearLayout>
+
+Java code:
+package com.example.myapplication;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import androidx.appcompat.app.AppCompatActivity;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+public class MainActivity extends AppCompatActivity {
+     EditText editTextEmail, editTextEventName, editTextDate, editTextTime,editTextLocation;
+     Button buttonPickDate, buttonPickTime, buttonAccept;
+     TextView textViewResult;
+     Calendar calendar;
+     SimpleDateFormat dateFormat, timeFormat;
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        editTextEmail = findViewById(R.id.e1);
+        editTextEventName = findViewById(R.id.e2);
+        editTextDate = findViewById(R.id.e3);
+        editTextTime = findViewById(R.id.e4);
+        editTextLocation=findViewById(R.id.elocation);
+        buttonPickDate = findViewById(R.id.Datebtn);
+        buttonPickTime = findViewById(R.id.Timebtn);
+        buttonAccept = findViewById(R.id.Acceptbtn);
+        textViewResult = findViewById(R.id.textView);
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        timeFormat = new SimpleDateFormat("hh:mm a", Locale.ENGLISH);
+        buttonPickDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+        buttonPickTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog();
+            }
+        });
+        buttonAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displaySelectedData();
+            }
+        });
+    }
+    public void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, month);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        editTextDate.setText(dateFormat.format(calendar.getTime()));
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
+    public void showTimePickerDialog() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
+                this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+                        editTextTime.setText(timeFormat.format(calendar.getTime()));
+                    }
+                },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                false
+        );
+        timePickerDialog.show();
+    }
+    public void displaySelectedData() {
+        String email = editTextEmail.getText().toString();
+        String eventName = editTextEventName.getText().toString();
+        String location=editTextLocation.getText().toString();
+        String date = editTextDate.getText().toString();
+        String time = editTextTime.getText().toString();
+        String resultText = "Email: " + email + "\nEvent Name: " + eventName + "\nLocation: "+location+"\nDate: " + date + "\nTime: " + time;
+        textViewResult.setText(resultText);
+    }
+}
+

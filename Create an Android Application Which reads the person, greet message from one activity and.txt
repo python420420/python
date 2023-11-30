@@ -1,0 +1,112 @@
+XML code 1:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#ADD8E6">
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:text="Name:"
+        android:textSize="20sp" />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/e1"
+        android:layout_marginTop="38dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="2dp"/>
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="125dp"
+        android:layout_marginLeft="150dp"
+        android:id="@+id/b1"
+        android:text="Greet"
+        android:textSize="15sp"/>
+</RelativeLayout>
+
+Java code 1:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+public class MainActivity extends AppCompatActivity {
+    Button submit;
+    EditText text;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        submit=findViewById(R.id.b1);
+        text=findViewById(R.id.e1);
+        submit.setOnClickListener((view -> {
+            String str=text.getText().toString();
+            Intent intent=new Intent(getApplicationContext(),second_activity.class);
+            intent.putExtra("message_key",str);
+            startActivity(intent);
+        }));
+    }
+}
+
+XML code 2:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".second_activity"
+    android:background="#ADD8E6">
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/t2"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="40sp"
+        android:textStyle="italic"
+        android:layout_marginStart="40dp"
+        android:text="Welcome"
+        android:textColor="#DA70D6"/>
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/t3"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="40sp"
+        android:textStyle="italic"
+        android:layout_marginStart="40dp"
+        android:layout_below="@id/t2"
+        android:textColor="#DA70D6"/>
+</RelativeLayout>
+
+Java code 2:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+public class second_activity extends AppCompatActivity {
+    TextView receiver_message;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+        receiver_message=findViewById(R.id.t3);
+        Intent intent=getIntent();
+        String str=intent.getStringExtra("message_key");
+        receiver_message.setText(str);
+    }
+}
+

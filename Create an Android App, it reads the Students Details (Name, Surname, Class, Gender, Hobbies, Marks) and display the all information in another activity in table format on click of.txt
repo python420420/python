@@ -1,0 +1,422 @@
+XML code 1:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#DDA0DD">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t1"
+        android:text="Name:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/etname" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t2"
+        android:text="Surname:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/t1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/etsurname"
+        android:layout_below="@id/etname"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t3"
+        android:text="Class:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/t2"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"/>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/s1"
+        android:layout_below="@id/etsurname"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="15dp"
+        android:entries="@array/class_name"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t4"
+        android:text="Hobbies:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/t3"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"/>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/s2"
+        android:layout_below="@id/s1"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="22dp"
+        android:entries="@array/hobbies"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t5"
+        android:text="Gender:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/t4"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"/>
+    <RadioGroup
+        android:id="@+id/radioGrp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/s2"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="15dp">
+        <RadioButton
+            android:id="@+id/radioM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:checked="true"
+            android:layout_weight="1"
+            android:textSize="14dp"
+            android:text="Male" />
+        <RadioButton
+            android:id="@+id/radioF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:checked="false"
+            android:layout_weight="1"
+            android:textSize="14dp"
+            android:text="Female"/>
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t6"
+        android:text="Marks:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/t5"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/etmarks"
+        android:layout_below="@id/radioGrp"
+        android:inputType="number"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/submitbtn"
+        android:text="Submit"
+        android:layout_below="@id/etmarks"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="20dp"/>
+</RelativeLayout>
+
+Java Code 1:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Intent;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.view.View;
+import android.widget.TextView;
+public class MainActivity extends AppCompatActivity {
+    TextView txt1,txt2,txt3,txt4,txt5,txt6;
+    EditText name,lastname,marks;
+    Button submit;
+    Spinner sp1,sp2;
+    RadioGroup rdg;
+    RadioButton rdbm,rdbf;
+    String text;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        txt1 = findViewById(R.id.t1);
+        txt2 = findViewById(R.id.t2);
+        txt3 = findViewById(R.id.t3);
+        txt4 = findViewById(R.id.t4);
+        txt5 = findViewById(R.id.t5);
+        txt6 = findViewById(R.id.t6);
+        sp1 = findViewById(R.id.s1);
+        sp2 = findViewById(R.id.s2);
+        name = findViewById(R.id.etname);
+        lastname = findViewById(R.id.etsurname);
+        marks = findViewById(R.id.etmarks);
+        rdg=findViewById(R.id.radioGrp);
+        rdbm=findViewById(R.id.radioM);
+        rdbf=findViewById(R.id.radioF);
+        submit= findViewById(R.id.submitbtn);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.class_name, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter adapter1 = ArrayAdapter.createFromResource(this,R.array.hobbies, android.R.layout.simple_spinner_dropdown_item);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedRadioButtonId = rdg.getCheckedRadioButtonId();
+                switch(selectedRadioButtonId){
+                    case R.id.radioM:
+                        text = "male";
+
+                        break;
+                    case R.id.radioF:
+                        text = "female";
+                        break;
+                }
+                String str =name.getText().toString();
+                String str1 =lastname.getText().toString();
+                String str2 =marks.getText().toString();
+                String str3 =sp1.getSelectedItem().toString();
+                String str4 =sp2.getSelectedItem().toString();
+                Intent intent= new Intent(MainActivity.this,SecondActivity.class);
+                intent.putExtra("message",str);
+                intent.putExtra("message1",str1);
+                intent.putExtra("message2",str2);
+                intent.putExtra("message3",str3);
+                intent.putExtra("message4",str4);
+                intent.putExtra("message5",text);
+                startActivity(intent);
+            }
+        });
+    }
+}
+
+Strings.xml
+<resources>
+    <string name="app_name">My Application</string>
+    <string-array name="class_name">
+        <item>BSc(CS)</item>
+        <item>BCA</item>
+        <item>BBA</item>
+        <item>MSc(CA)</item>
+        <item>MBA</item>
+    </string-array>
+    <string-array name="hobbies">
+        <item>Reading</item>
+        <item>Trekking</item>
+        <item>Blogging</item>
+        <item>Learning new language</item>
+        <item>Gardening</item>
+    </string-array>
+</resources>
+
+XML code 2:
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SecondActivity"
+    android:background="#DDA0DD"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/txtv1"
+            android:text="Name"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtv2"
+            android:text=""
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/txtv3"
+            android:text="Surname"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtv4"
+            android:text=""
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/txtv5"
+            android:text="Class"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtv6"
+            android:text=""
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/txtv7"
+            android:text="Hobbies"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtv8"
+            android:text=""
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/txtv9"
+            android:text="Gender"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtv10"
+            android:text=""
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/txtv11"
+            android:text="Marks"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtv12"
+            android:text=""
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:layout_row="5"
+            android:layout_column="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+</TableLayout>
+
+Java code2:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Intent;
+import android.widget.TextView;
+public class SecondActivity extends AppCompatActivity {
+    TextView tname,tlastname,tclass,thobby,tgender,tmarks;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+        tname= findViewById(R.id.txtv2);
+        tlastname= findViewById(R.id.txtv4);
+        tclass= findViewById(R.id.txtv6);
+        thobby= findViewById(R.id.txtv8);
+        tgender= findViewById(R.id.txtv10);
+        tmarks=findViewById(R.id.txtv12);
+        Intent intent = getIntent();
+        String str= intent.getStringExtra("message");
+        tname.setText(str);
+        String str1= intent.getStringExtra("message1");
+        tlastname.setText(str1);
+        String str2= intent.getStringExtra("message2");
+        tmarks.setText(str2);
+        String str3= intent.getStringExtra("message3");
+        tclass.setText(str3);
+        String str4= intent.getStringExtra("message4");
+        thobby.setText(str4);
+        String text= intent.getStringExtra("message5");
+        tgender.setText(text);
+    }
+}
+

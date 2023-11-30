@@ -1,0 +1,76 @@
+XML code:
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity"
+    android:background="#E0FFFF">
+
+        <Switch
+            android:id="@+id/switchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Switch"
+            android:checked="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="150dp"/>
+
+        <ToggleButton
+            android:id="@+id/toggleBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="Off"
+            android:textOn="On"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="150dp"/>
+
+</LinearLayout>
+
+Java code:
+package com.example.myapplication;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Switch;
+public class MainActivity extends AppCompatActivity {
+     Switch switchButton;
+     ToggleButton toggleButton;
+     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        switchButton = findViewById(R.id.switchBtn);
+        toggleButton = findViewById(R.id.toggleBtn);
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    showToast("Switch is ON");
+                } else {
+                    showToast("Switch is OFF");
+                }
+            }
+        });
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (toggleButton.isChecked()) {
+                    showToast("Toggle Button is ON");
+                } else {
+                    showToast("Toggle Button is OFF");
+                }
+            }
+        });
+    }
+    public void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+}

@@ -1,0 +1,103 @@
+XML code:
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="#F5F5DC">
+    <TableLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username : "
+                android:id="@+id/t1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+            <EditText
+                android:hint="Enter username"
+                android:id="@+id/e1"
+                android:inputType="text"
+                android:textSize="20sp"/>
+
+        </TableRow>
+        <TableRow
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password : "
+                android:id="@+id/t2"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+            <EditText
+                android:hint="Enter password"
+                android:id="@+id/e2"
+                android:inputType="textPassword"
+                android:textSize="20sp"/>
+        </TableRow>
+    </TableLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="100dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b1"
+            android:text="Login"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+   <TextView
+       android:layout_width="200dp"
+       android:layout_height="100dp"
+       android:layout_marginTop="30dp"
+       android:layout_gravity="center"
+       android:textColor="@color/black"
+       android:textSize="15sp"
+       android:id="@+id/t3"/>
+</LinearLayout>
+
+Java code:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+public class MainActivity extends AppCompatActivity {
+    EditText name,password;
+    TextView result;
+    Button login1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        name=(EditText) findViewById(R.id.e1);
+        password=(EditText) findViewById(R.id.e2);
+        result=(TextView)findViewById(R.id.t3);
+        login1=(Button) findViewById(R.id.b1);
+        login1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String e1=name.getText().toString();
+                String e2=password.getText().toString();
+                result.setText("Username\t:" +e1+"\nPassword\t:"+e2);
+
+            }
+        });
+    }
+}

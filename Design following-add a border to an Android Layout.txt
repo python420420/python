@@ -1,0 +1,49 @@
+XML code:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <TextView
+        android:id="@+id/helloTextView"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="57dp"
+        android:background="@drawable/border"
+        android:text="Hello World!"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+       android:gravity="center"/>
+</RelativeLayout>
+
+
+
+
+Border.xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#9400D3" /> <!-- Background color -->
+    <stroke
+        android:width="2dp"
+        android:color="#000000" />
+    <corners android:radius="8dp" />
+</shape>
+
+
+Java code:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}

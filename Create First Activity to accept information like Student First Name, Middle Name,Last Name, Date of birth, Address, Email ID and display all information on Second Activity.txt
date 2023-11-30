@@ -1,0 +1,203 @@
+XML code 1:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#FFFACD"
+tools:context=".MainActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:text="Student Details"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="100dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+       <EditText
+        android:id="@+id/firstNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=" Enter First Name"
+        android:layout_below="@id/title"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:inputType="textPersonName"/>
+
+      <EditText
+          android:id="@+id/middleNameEditText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/firstNameEditText"
+          android:hint=" Enter Middle Name"
+          android:layout_marginTop="15dp"
+          android:layout_marginRight="15dp"
+          android:layout_marginLeft="15dp"
+          android:inputType="textPersonName"/>
+
+       <EditText
+          android:id="@+id/lastNameEditText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/middleNameEditText"
+          android:hint="Enter Last Name"
+           android:layout_marginLeft="15dp"
+           android:layout_marginRight="15dp"
+           android:layout_marginTop="15dp"
+           android:inputType="textPersonName"/>
+
+     <EditText
+         android:id="@+id/dateOfBirthEditText"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/lastNameEditText"
+         android:hint="Date of Birth (YYYY-MM-DD)"
+         android:layout_marginTop="15dp"
+         android:layout_marginRight="15dp"
+         android:layout_marginLeft="15dp"
+         android:inputType="date"/>
+
+<EditText
+    android:id="@+id/addressEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/dateOfBirthEditText"
+    android:hint="Enter Address"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="15dp"
+    android:inputType="textPostalAddress"/>
+
+<EditText
+    android:id="@+id/emailEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/addressEditText"
+    android:hint="Enter Email ID"
+    android:layout_marginTop="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
+    android:inputType="textEmailAddress"/>
+
+<Button
+    android:id="@+id/submitButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/emailEditText"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="30dp"
+    android:text="Submit" />
+
+</RelativeLayout>
+
+Java code 1:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+public class MainActivity extends AppCompatActivity {
+    EditText firstName1, middleName1, lastName1, dateOfBirth1, address1, email1;
+    Button submitButton;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        firstName1 = findViewById(R.id.firstNameEditText);
+        middleName1 = findViewById(R.id.middleNameEditText);
+        lastName1 = findViewById(R.id.lastNameEditText);
+        dateOfBirth1 = findViewById(R.id.dateOfBirthEditText);
+        address1 = findViewById(R.id.addressEditText);
+        email1 = findViewById(R.id.emailEditText);
+        submitButton = findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String firstName = firstName1.getText().toString();
+                String middleName = middleName1.getText().toString();
+                String lastName = lastName1.getText().toString();
+                String dateOfBirth = dateOfBirth1.getText().toString();
+                String address = address1.getText().toString();
+                String email = email1.getText().toString();
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                intent.putExtra("FirstName", firstName);
+                intent.putExtra("MiddleName", middleName);
+                intent.putExtra("LastName", lastName);
+                intent.putExtra("DateOfBirth", dateOfBirth);
+                intent.putExtra("Address", address);
+                intent.putExtra("Email", email);
+                startActivity(intent);
+            }
+        });
+    }
+}
+
+XML code 2:
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFACD">
+
+    <TextView
+        android:id="@+id/displayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Student Details:"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/displayInfoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:text=""
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginLeft="100dp"/>
+
+</LinearLayout>
+
+Java code 2:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.content.Intent;
+import android.widget.TextView;
+public class SecondActivity extends AppCompatActivity {
+    TextView InfoTextView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+        InfoTextView = findViewById(R.id.displayInfoTextView);
+        Intent intent = getIntent();
+        String firstName = intent.getStringExtra("FirstName");
+        String middleName = intent.getStringExtra("MiddleName");
+        String lastName = intent.getStringExtra("LastName");
+        String dateOfBirth = intent.getStringExtra("DateOfBirth");
+        String address = intent.getStringExtra("Address");
+        String email = intent.getStringExtra("Email");
+        String studentInfo = "First Name: \t" + firstName + "\n" +
+                "Middle Name: \t" + middleName + "\n" +
+                "Last Name: \t" + lastName + "\n" +
+                "Date of Birth: \t" + dateOfBirth + "\n" +
+                "Address: \t" + address + "\n" +
+                "Email ID: \t" + email;
+        InfoTextView.setText(studentInfo);
+    }
+}
+

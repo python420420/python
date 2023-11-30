@@ -1,0 +1,193 @@
+XML code:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Details"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="120dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:id="@+id/title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t1"
+        android:text="Enter Student ID :"
+        android:layout_below="@id/title"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/black"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/title"
+        android:layout_marginRight="30dp"
+        android:id="@+id/e1"
+        android:inputType="number"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t2"
+        android:text="Enter Student Name :"
+        android:layout_below="@id/t1"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/black"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/e1"
+        android:layout_marginRight="30dp"
+        android:id="@+id/e2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t3"
+        android:text="Enter Student Address :"
+        android:layout_below="@id/t2"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/black"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/e2"
+        android:layout_marginRight="30dp"
+        android:id="@+id/e3"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t4"
+        android:text="Enter Student Phno :"
+        android:layout_below="@id/t3"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/black"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/e3"
+        android:layout_marginRight="30dp"
+        android:id="@+id/e4"
+        android:inputType="phone"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/b1"
+        android:text="Insert"
+        android:layout_below="@id/t4"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="150dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/b2"
+        android:text="Display"
+        android:layout_below="@id/b1"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="150dp"/>
+
+</RelativeLayout>
+
+
+Java code:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.app.Activity;
+public class MainActivity extends AppCompatActivity implements OnClickListener {
+    EditText Id, Name,Address, Phno;
+    Button Insert, ViewAll;
+    SQLiteDatabase db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Id = (EditText) findViewById(R.id.e1);
+        Name = (EditText) findViewById(R.id.e2);
+        Address = (EditText) findViewById(R.id.e3);
+        Phno = (EditText) findViewById(R.id.e4);
+        Insert = (Button) findViewById(R.id.b1);
+        ViewAll = (Button) findViewById(R.id.b2);
+        Insert.setOnClickListener(this);
+        ViewAll.setOnClickListener(this);
+        db = openOrCreateDatabase("StudentDatabase1", Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS students1(id VARCHAR,name VARCHAR,address VARCHAR,phno VARCHAR);");
+
+    }
+
+    public void onClick(View view)
+    {
+        if (view == Insert)
+        {
+            if (Id.getText().toString().trim().length() == 0 || Name.getText().toString().trim().length() == 0 || Address.getText().toString().trim().length() == 0||Phno.getText().toString().trim().length() == 0)
+            {
+                showMessage("Error", "Please enter all values");
+                return;
+            }
+            db.execSQL("INSERT INTO students1 VALUES('" + Id.getText() + "','" + Name.getText() + "','" + Address.getText() + "','"+Phno.getText()+"');");
+            showMessage("Success", "Record added");
+            clearText();
+        }
+        if (view == ViewAll)
+        {
+            Cursor c = db.rawQuery("SELECT * FROM students1", null);
+            if (c.getCount() == 0)
+            {
+
+                showMessage("Error", "No records found");
+                return;
+            }
+            StringBuffer buffer = new StringBuffer();
+            while (c.moveToNext())
+            {
+                buffer.append("ID:" + c.getString(0) + "\n");
+                buffer.append("Name:" + c.getString(1) + "\n");
+                buffer.append("Address:" + c.getString(2) + "\n");
+                buffer.append("Phno:" + c.getString(3) + "\n\n");
+            }
+            showMessage("Student Details:", buffer.toString());
+        }
+
+
+    }
+
+    public void showMessage(String title, String message) {
+        Builder builder = new Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
+    }
+
+    public void clearText() {
+        Id.setText("");
+        Name.setText("");
+        Address.setText("");
+        Phno.setText("");
+        Id.requestFocus();
+    }
+}
+

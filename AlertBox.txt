@@ -1,0 +1,70 @@
+XML code:
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/numberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter a number"
+        android:inputType="number" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate Factorial"
+        android:onClick="calculateFactorial"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+
+Java code:
+package com.example.myapplication;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import androidx.appcompat.app.AppCompatActivity;
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+    public void calculateFactorial(View view) {
+        EditText numberEditText = findViewById(R.id.numberEditText);
+        String input = numberEditText.getText().toString();
+        if (input.isEmpty()) {
+            displayResult("Please enter a number.");
+            return;
+        }
+        int number = Integer.parseInt(input);
+        long factorial = calculateFactorial(number);
+        displayResult("Factorial of " + number + " is " + factorial);
+    }
+    private long calculateFactorial(int n) {
+        if (n <= 1) {
+            return 1;
+        }
+        return n * calculateFactorial(n - 1);
+    }
+    private void displayResult(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message).setPositiveButton("OK", new DialogInterface.OnClickListener()
+        {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
+    }
+}

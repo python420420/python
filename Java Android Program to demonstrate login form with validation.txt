@@ -1,0 +1,142 @@
+XML Code:
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#008000"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/etemail"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="66dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="511dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="74dp"
+            tools:layout_editor_absoluteY="151dp" />
+
+        <EditText
+            android:id="@+id/etpassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="67dp"
+            android:layout_marginBottom="455dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="74dp" />
+
+        <Button
+            android:id="@+id/Login"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="63dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="359dp"
+            android:background="@color/white"
+            android:text="Login"
+            android:textColor="#90EE90"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="74dp" />
+
+        <TextView
+            android:id="@+id/tvresult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="74dp"
+            android:layout_marginEnd="59dp"
+            android:layout_marginBottom="278dp"
+            android:text="Not a member?Sign up now."
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.529"
+            tools:layout_editor_absoluteX="74dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="219dp"
+            android:layout_height="153dp"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="99dp"
+            android:layout_marginEnd="93dp"
+            android:layout_marginBottom="102dp"
+            android:text=""
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.578"
+            app:layout_constraintStart_toStartOf="parent" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+Java code:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+public class MainActivity extends AppCompatActivity {
+    EditText email,password;
+    TextView result;
+    Button login1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        email=(EditText) findViewById(R.id.etemail);
+        password=(EditText) findViewById(R.id.etpassword);
+        result=(TextView)findViewById(R.id.tvresult);
+        login1=(Button) findViewById(R.id.Login);
+        login1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String e1=email.getText().toString();
+                String e2=password.getText().toString();
+                result.setText("Email\t:" +e1+"\nPassword\t:"+e2);
+
+            }
+        });
+    }
+}

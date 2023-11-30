@@ -1,0 +1,241 @@
+XML code:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t1"
+        android:text="ID :"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="80dp"
+        android:id="@+id/eid"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t2"
+        android:text="Name:"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/t1"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="90dp"
+        android:id="@+id/ename"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t3"
+        android:text="Duration:"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/t2"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="110dp"
+        android:id="@+id/eduration"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/t4"
+        android:text="Description:"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/t3"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="140dp"
+        android:id="@+id/edescription"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/badd"
+        android:text="Add"
+        android:layout_below="@id/t4"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bdel"
+        android:text="Delete"
+        android:layout_below="@id/badd"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bup"
+        android:text="Update"
+        android:layout_below="@id/bdel"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bview"
+        android:text="View all"
+        android:layout_below="@id/bup"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"/>
+
+
+
+
+</RelativeLayout>
+
+
+Java code:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.Cursor;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.app.AlertDialog.Builder;
+import android.widget.Toast;
+public class MainActivity extends AppCompatActivity implements OnClickListener
+{
+    EditText id,name, dur,des;
+    Button b1,b4,b2,b3;
+    SQLiteDatabase db;
+    String title,message;
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        id=(EditText) findViewById (R.id.eid);
+        name=(EditText) findViewById(R.id.ename);
+        dur = (EditText) findViewById(R.id.eduration);
+        des=(EditText) findViewById(R.id.edescription);
+        b1=(Button) findViewById(R.id.badd);
+        b4=(Button) findViewById(R.id.bview);
+        b2=(Button) findViewById(R.id.bdel);
+        b3=(Button) findViewById(R.id.bup);
+        b1.setOnClickListener(this);
+        b2.setOnClickListener(this);
+        b3.setOnClickListener(this);
+        b4.setOnClickListener(this);
+        db=openOrCreateDatabase("Course",Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS course(id VARCHAR,name VARCHAR,dur VARCHAR,des VARCHAR);");
+        showMessage("Success","Table Created");
+    }
+    public void showMessage(String title,String message)
+    {
+        Builder builder=new Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
+    }
+    public void clearText()
+    {
+        id.setText("");
+        name.setText("");
+        dur.setText("");
+        des.setText("");
+        id.requestFocus();
+    }
+    @Override
+    public void onClick(View view){
+        if(view==b1)
+        {
+            if(id.getText().toString().trim().length()==0||name.getText().toString().trim().length()==0|| dur.getText().toString().trim().length()==0||des.getText().toString().trim().length()==0)
+            {
+                Toast.makeText(this,"please enter the value",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            db.execSQL("insert into course values('"+id.getText()+"','"+name.getText()+"','"+dur.getText()+"','"+des.getText()+"');");
+            showMessage("Success","Record added");
+            clearText();
+        }
+        if (view==b4)
+        {
+            Cursor c=db.rawQuery("select * from course",null);
+            if(c.getCount()==0)
+            {
+                showMessage("Error","No Record Found");
+                return;
+            }
+            StringBuffer b=new StringBuffer();
+            while(c.moveToNext())
+            {
+                b.append("Course id:"+c.getString(0)+"\n");
+                b.append("Course name:"+c.getString(1)+"\n");
+                b.append("Course duration:"+c.getString(2)+"\n");
+                b.append("Course description:"+c.getString(3)+"\n");
+            }
+            showMessage("Course Details",b.toString());
+
+        }
+        if(view==b2)
+        {
+            if(id.getText().toString().trim().length()==0)
+            {
+                showMessage("Error","Please Enter the Employee ID");
+                return;
+            }
+            Cursor c=db.rawQuery("select * from course where id='"+id.getText()+"'",null);
+            if(c.moveToFirst())
+            {
+                db.execSQL("delete from course where id='"+id.getText()+"'");
+                showMessage("Success","Record Deleted");
+            }
+            else
+            {
+                showMessage("Error","Invalid Course ID");
+            }
+            clearText();
+        }
+        if(view==b3)
+        {
+            if(id.getText().toString().trim().length()==0)
+            {
+                showMessage("Error", "Please enter the course id");
+                return;
+            }
+            Cursor c=db.rawQuery("select * from course where id='"+id.getText()+"'",null);
+            if(c.moveToFirst())
+            {
+                db.execSQL("update course set name='"+name.getText()+"',dur='"+dur.getText()+"'where id='"+id.getText()+"'");
+                showMessage("Success","Record Modified");
+            }
+            else
+            {
+                showMessage("Error","Invalid Course ID");
+                return;
+
+            }
+        }
+        clearText();
+    }
+
+
+}
+

@@ -1,0 +1,354 @@
+XML code:
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C0C0C0"
+    tools:context=".MainActivity"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+    <EditText
+        android:id="@+id/e1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="15dp"
+        android:inputType="numberDecimal"/>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/b1"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="1"
+        android:layout_column="0"/>
+
+    <Button
+        android:id="@+id/b2"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="2"
+        android:layout_column="1"/>
+
+    <Button
+        android:id="@+id/b3"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="3"
+        android:layout_column="2"/>
+
+    <Button
+        android:id="@+id/badd"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="25dp"
+        android:text="+"
+        android:layout_column="3"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/b4"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:text="4"
+            android:layout_column="0"/>
+
+        <Button
+            android:id="@+id/b5"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:text="5"
+            android:layout_column="1"/>
+
+        <Button
+            android:id="@+id/b6"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:text="6"
+            android:layout_column="2"/>
+
+        <Button
+            android:id="@+id/bsub"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="25dp"
+            android:text="-"
+            android:layout_column="3"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/b7"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:text="7"
+            android:layout_column="0"/>
+
+        <Button
+            android:id="@+id/b8"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:text="8"
+            android:layout_column="1"/>
+
+        <Button
+            android:id="@+id/b9"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:text="9"
+            android:layout_column="2"/>
+
+        <Button
+            android:id="@+id/bmul"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="25dp"
+            android:text="*"
+            android:layout_column="3"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/bdot"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:text="."
+            android:layout_column="0"/>
+
+        <Button
+            android:id="@+id/bzero"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:text="0"
+            android:layout_column="1"/>
+
+        <Button
+            android:id="@+id/bclear"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:text="C"
+            android:layout_column="2"/>
+
+        <Button
+            android:id="@+id/bdiv"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="25dp"
+            android:text="/"
+            android:layout_column="3"/>
+    </TableRow>
+    <Button
+        android:id="@+id/bequal"
+        android:text="="
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+</TableLayout>
+
+
+Java code:
+package com.example.myapplication;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+public class MainActivity extends AppCompatActivity {
+    EditText inp;
+    Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btndt,btnclr,btneq,btnplus,btnminus,btnprod,btnrem;
+    float one,two;
+    boolean add,sub,mul,div;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        inp = (EditText)findViewById (R.id.e1);
+        btn0 = (Button) findViewById(R.id.bzero);
+        btn1 =(Button) findViewById(R.id.b1);
+        btn2 = (Button) findViewById(R.id.b2);
+        btn3 = (Button) findViewById(R.id.b3);
+        btn4 = (Button)findViewById (R.id.b4);
+        btn5 = (Button) findViewById(R.id.b5);
+        btn6 = (Button) findViewById(R.id.b6);
+        btn7 = (Button) findViewById(R.id.b7);
+        btn8 = (Button) findViewById(R.id.b8);
+        btn9 = (Button) findViewById(R.id.b9);
+        btndt = (Button) findViewById(R.id.bdot);
+        btnclr = (Button) findViewById(R.id.bclear);
+        btneq = (Button) findViewById(R.id.bequal);
+        btnplus = (Button) findViewById(R.id.badd);
+        btnminus = (Button) findViewById(R.id.bsub);
+        btnprod = (Button) findViewById(R.id.bmul);
+        btnrem = (Button) findViewById(R.id.bdiv);
+        btn0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"0");
+            }
+        });
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"1");
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"2");
+            }
+        });
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"3");
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"4");
+            }
+        });
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"5");
+            }
+        });
+        btn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"6");
+            }
+        });
+        btn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"7");
+            }
+        });
+        btn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"8");
+            }
+        });
+        btn9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+"9");
+            }
+        });
+        btnplus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (inp == null) {
+                    inp.setText("");
+                } else {
+                    one = Float.parseFloat(inp.getText() + "");
+                    add = true;
+                    inp.setText(null);
+                }
+            }
+        });
+        btnminus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                one = Float.parseFloat(inp.getText() + "");
+                sub = true;
+                inp.setText(null);
+            }
+        });
+        btnprod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                one = Float.parseFloat(inp.getText() + "");
+                mul = true;
+                inp.setText(null);
+            }
+        });
+        btnrem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                one = Float.parseFloat(inp.getText() + "");
+                div = true;
+                inp.setText(null);
+            }
+        });
+        btneq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                two=Float.parseFloat(inp.getText()+"");
+                if(add==true)
+                {
+                    inp.setText(one+ two+"");
+                    add=false;
+                }
+                if(sub==true)
+                {
+                    inp.setText(one-two+"");
+                    sub=false;
+                }
+                if(mul==true)
+                {
+                    inp.setText(one* two+"");
+                    mul=false;
+                }
+                if(div==true)
+                {
+                    inp.setText(one/ two+"");
+                    div=false;
+                }
+            }
+        });
+        btnclr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText("");
+            }
+        });
+        btndt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inp.setText(inp.getText()+".");
+            }
+        });
+    }
+}
